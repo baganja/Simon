@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simon Kibet - Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 100
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+          // Close mobile menu after clicking
+          if (mobileMenu) {
+            mobileMenu.classList.add('hidden');
+          }
+        });
+      });
+
+      // Navbar background on scroll
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('header');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Interactive particle background
+      createParticles();
+    });
+
+    function createParticles() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '1';
+      canvas.style.opacity = '0.1';
+      document.body.appendChild(canvas);
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const particles = [];
+      const particleCount = window.innerWidth < 768 ? 20 : 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+        
+        particles.forEach(particle => {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          
+          if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+          if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+          
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+  </script>
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #1e40af;
+      --accent-color: #f59e0b;
+      --text-dark: #1f2937;
+      --text-light: #6b7280;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .font-body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .primary-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    }
+
+    .accent-text {
+      color: var(--accent-color);
+    }
+
+    .floating-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .profile-glow {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.5); }
+    }
+
+    .primary-button {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .primary-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .primary-button:hover::before {
+      left: 100%;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .skill-card:hover::before {
+      opacity: 1;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .experience-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .experience-card:hover::before {
+      left: 100%;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      background: rgba(255, 255, 255, 1);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+      outline: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: var(--text-light);
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-shadow {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .hero-bg {
+        min-height: 100vh;
+        padding: 2rem 1rem;
+      }
+      
+      .floating-animation {
+        animation: none;
+      }
+      
+      .profile-glow {
+        animation: none;
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      }
+      
+      .skill-card:hover,
+      .experience-card:hover {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-bg h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-bg p {
+        font-size: 1.1rem;
+      }
+      
+      section h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Profile image placeholder */
+    .profile-placeholder {
+      width: 160px;
+      height: 160px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .profile-placeholder-small {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-body">
+  <header class="fixed top-0 w-full z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-4">
+      <div class="text-2xl font-bold font-display accent-text">Simon Kibet</div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#home" class="hover:text-blue-600 font-medium transition-colors duration-300">Home</a>
+        <a href="#about" class="hover:text-blue-600 font-medium transition-colors duration-300">About</a>
+        <a href="#experience" class="hover:text-blue-600 font-medium transition-colors duration-300">Experience</a>
+        <a href="#skills" class="hover:text-blue-600 font-medium transition-colors duration-300">Skills</a>
+        <a href="#contact" class="hover:text-blue-600 font-medium transition-colors duration-300">Contact</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+      <div class="px-4 py-2 space-y-1">
+        <a href="#home" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Home</a>
+        <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">About</a>
+        <a href="#experience" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Experience</a>
+        <a href="#skills" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Skills</a>
+        <a href="#contact" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-20 md:pt-24">
+    <section id="home" class="min-h-screen flex items-center justify-center hero-bg text-white text-center px-4 relative">
+      <div data-aos="fade-up" data-aos-duration="1500" class="z-10 relative max-w-4xl mx-auto">
+        <div class="floating-animation">
+          <!-- Profile Image Placeholder -->
+          <img src="profile.jpg" alt="Simon Profile" class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-blue-300 profile-glow">
+        </div>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-display text-shadow">
+          Hi, I'm <span class="text-yellow-300">Simon</span>
+        </h1>
+        <p class="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 font-light leading-relaxed">
+          Public Health Professional & Recreational Care Specialist. I create healthier communities through innovative programs and compassionate care.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#contact" class="primary-button px-6 md:px-8 py-3 md:py-4 rounded-full shadow-lg text-white font-semibold text-lg">
+            Contact Me
+          </a>
+          <a href="#experience" class="glass-card px-6 md:px-8 py-3 md:py-4 rounded-full shadow-lg hover:text-blue-600 font-semibold text-lg text-gray-800">
+            My Experience
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16 md:py-24 bg-white relative">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
+            About <span class="accent-text">Me</span>
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 font-light">A passionate advocate for public well-being and elder care</p>
+        </div>
+        <div class="md:flex items-center gap-8 lg:gap-16">
+          <div class="md:w-1/3 mb-8 md:mb-0" data-aos="fade-right" data-aos-duration="1200">
+            <div class="glass-card p-6 rounded-2xl">
+              <!-- Profile Image Placeholder -->
+              <img src="profile.jpg" alt="Simon Kibet" class="rounded-xl shadow-2xl w-full h-auto object-cover">
+            </div>
+          </div>
+          <div class="md:w-2/3 space-y-6 md:space-y-8" data-aos="fade-left" data-aos-duration="1200">
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+              I specialize in managing public health programs and recreational therapies, with deep knowledge in elder care, crisis intervention, and mental health support. My experience spans both Kenyan and Canadian healthcare systems.
+            </p>
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+              I'm devoted to creating inclusive and accessible wellness environments through data-driven decision-making and collaborative leadership.
+            </p>
+            <div class="glass-card p-6 rounded-xl bg-gradient-to-br from-blue-50 to-purple-50">
+              <ul class="space-y-3 text-base md:text-lg">
+                <li class="flex items-center">
+                  <span class="accent-text font-semibold mr-3">✉</span> 
+                  <span class="break-all">simonkibet01@gmail.com</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="accent-text font-semibold mr-3">📞</span> 
+                  (437) 766 0290
+                </li>
+                <li class="flex items-center">
+                  <span class="accent-text font-semibold mr-3">📍</span> 
+                  Toronto, Ontario
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-16 md:py-24 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
+            Professional <span class="accent-text">Experience</span>
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 font-light">Hands-on expertise in both community health and recreational care</p>
+        </div>
+        <div class="space-y-6 md:space-y-8">
+          <div data-aos="fade-up" data-aos-delay="100" class="experience-card rounded-2xl p-6 md:p-8 text-gray-800">
+            <h3 class="text-xl md:text-2xl font-bold mb-2 font-display accent-text">Recreational Aide - Villa Colombo</h3>
+            <p class="text-sm text-gray-600 mb-4 font-medium">Toronto • May 2024 - Present</p>
+            <ul class="space-y-2 text-gray-700 text-base md:text-lg">
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Oversee leisure activities including sports and arts</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Provide individualized support to residents with special needs</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Plan and monitor activity schedules for safety and engagement</span>
+              </li>
+            </ul>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="200" class="experience-card rounded-2xl p-6 md:p-8 text-gray-800">
+            <h3 class="text-xl md:text-2xl font-bold mb-2 font-display accent-text">Public Health Volunteer - MTRH</h3>
+            <p class="text-sm text-gray-600 mb-4 font-medium">Eldoret, Kenya • Aug 2022 - Oct 2023</p>
+            <ul class="space-y-2 text-gray-700 text-base md:text-lg">
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Conducted sanitary surveys and public health inspections</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Led environmental health assessments and education programs</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Trained staff on gerontological care best practices</span>
+              </li>
+            </ul>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="300" class="experience-card rounded-2xl p-6 md:p-8 text-gray-800">
+            <h3 class="text-xl md:text-2xl font-bold mb-2 font-display accent-text">Public Health Intern - Mama Lucy Kibaki Hospital</h3>
+            <p class="text-sm text-gray-600 mb-4 font-medium">Nairobi • Feb 2022 - Aug 2022</p>
+            <ul class="space-y-2 text-gray-700 text-base md:text-lg">
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Supported elderly patient care and emergency response</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Coordinated with interprofessional teams for holistic treatment</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-3 mt-1">•</span>
+                <span>Assisted in policy creation for chronic disease management</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-24 bg-white">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
+            Skills & <span class="accent-text">Competencies</span>
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 font-light">Blending public health insight with empathy-driven care</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div data-aos="zoom-in" data-aos-delay="100" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Patient Assessment
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="150" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Gerontological Care
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="200" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Mental Health Support
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="250" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Emergency Response
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="300" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Community Engagement
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="350" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Policy Development
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="400" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Data Analysis
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="450" class="skill-card p-4 md:p-6 rounded-xl text-center font-semibold text-base md:text-lg text-gray-800">
+            Public Health Education
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 hero-bg text-white">
+      <div class="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-display text-shadow">
+          Get in <span class="text-yellow-300">Touch</span>
+        </h2>
+        <p class="mb-8 md:mb-12 text-lg md:text-xl text-gray-200 font-light">
+          Let's discuss how we can collaborate on improving public health and care systems
+        </p>
+        <div class="contact-form rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+          <form class="space-y-6">
+            <input 
+              type="text" 
+              placeholder="Your Name" 
+              class="w-full p-4 rounded-xl text-base md:text-lg" 
+            />
+            <input 
+              type="email" 
+              placeholder="Your Email" 
+              class="w-full p-4 rounded-xl text-base md:text-lg" 
+            />
+            <textarea 
+              placeholder="Your Message" 
+              rows="5" 
+              class="w-full p-4 rounded-xl text-base md:text-lg resize-none"
+            ></textarea>
+            <button class="w-full primary-button px-6 py-4 rounded-xl font-bold text-lg text-white">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white text-center py-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="border-t border-gray-700 pt-8">
+        <p class="text-gray-300 font-light">&copy; 2025 Simon Kibet. All rights reserved.</p>
+      </div>
+    
+    </div>
+  </footer>
+</body>
+</html>
