@@ -6,113 +6,9 @@
   <title>Simon Kibet - Portfolio</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-      AOS.init({
-        duration: 1000,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 100
-      });
-
-      // Mobile menu toggle
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      
-      if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-
-      // Smooth scrolling for navigation
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-          // Close mobile menu after clicking
-          if (mobileMenu) {
-            mobileMenu.classList.add('hidden');
-          }
-        });
-      });
-
-      // Navbar background on scroll
-      window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('header');
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
-
-      // Interactive particle background
-      createParticles();
-    });
-
-    function createParticles() {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.style.position = 'fixed';
-      canvas.style.top = '0';
-      canvas.style.left = '0';
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.zIndex = '1';
-      canvas.style.opacity = '0.1';
-      document.body.appendChild(canvas);
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      const particles = [];
-      const particleCount = window.innerWidth < 768 ? 20 : 50;
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1
-        });
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
-        
-        particles.forEach(particle => {
-          particle.x += particle.vx;
-          particle.y += particle.vy;
-          
-          if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-          if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-          
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-          ctx.fill();
-        });
-        
-        requestAnimationFrame(animate);
-      }
-      animate();
-    }
-  </script>
   <style>
     :root {
       --primary-color: #3b82f6;
@@ -325,6 +221,202 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
+    /* Newspaper Style */
+    .newspaper-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 3rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      font-family: 'Georgia', serif;
+    }
+
+    .newspaper-header {
+      border-bottom: 2px solid #204080;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .newspaper-header h1 {
+      font-size: 2.8rem;
+      color: #204080;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .newspaper-header .tagline {
+      font-size: 1rem;
+      color: #555;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .profile-image {
+      float: left;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      margin: 0 2rem 1rem 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      border: 4px solid white;
+      outline: 2px solid #204080;
+    }
+
+    .drop-cap {
+      float: left;
+      font-size: 3.8rem;
+      line-height: 3.2rem;
+      color: #204080;
+      font-weight: bold;
+      padding-right: 8px;
+      font-family: 'Georgia', serif;
+    }
+
+    .newspaper-content {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      text-align: justify;
+      color: #333;
+    }
+
+    .newspaper-content p {
+      margin-bottom: 1.6rem;
+    }
+
+    .highlight {
+      background-color: #ffecb3;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .pull-quote {
+      float: right;
+      width: 280px;
+      background: #f0f4fb;
+      border-left: 5px solid #4a90e2;
+      font-style: italic;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0 1rem 2rem;
+      font-size: 1rem;
+      color: #204080;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .vision-section {
+      background: #f0f4ff;
+      padding: 2rem;
+      border-left: 6px solid #204080;
+      margin-top: 3rem;
+      border-radius: 8px;
+      font-style: italic;
+      color: #204080;
+    }
+
+    .vision-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #204080;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .quote-marks.open {
+      font-size: 2.5rem;
+      position: absolute;
+      left: -25px;
+      top: -20px;
+      opacity: 0.3;
+    }
+
+    .quote-marks.close {
+      font-size: 2.5rem;
+      position: absolute;
+      right: -25px;
+      bottom: -20px;
+      opacity: 0.3;
+    }
+
+    /* Contact Cards */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .contact-card p, .contact-card a {
+      color: var(--text-light);
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 200px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      color: var(--text-dark);
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f1f5f9;
+    }
+
     /* Responsive improvements */
     @media (max-width: 768px) {
       .hero-bg {
@@ -345,6 +437,16 @@
       .experience-card:hover {
         transform: none;
       }
+
+      .profile-image, .pull-quote {
+        float: none;
+        display: block;
+        margin: 0 auto 1rem auto;
+      }
+
+      .newspaper-content {
+        text-align: left;
+      }
     }
 
     @media (max-width: 640px) {
@@ -359,35 +461,14 @@
       section h2 {
         font-size: 2.5rem;
       }
-    }
 
-    /* Profile image placeholder */
-    .profile-placeholder {
-      width: 160px;
-      height: 160px;
-      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 2rem;
-      color: white;
-      font-size: 3rem;
-      font-weight: bold;
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-    }
+      .newspaper-header h1 {
+        font-size: 2rem;
+      }
 
-    .profile-placeholder-small {
-      width: 100%;
-      height: 300px;
-      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
+      .newspaper-container {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -400,7 +481,13 @@
       <nav class="hidden md:flex space-x-8">
         <a href="#home" class="hover:text-blue-600 font-medium transition-colors duration-300">Home</a>
         <a href="#about" class="hover:text-blue-600 font-medium transition-colors duration-300">About</a>
-        <a href="#experience" class="hover:text-blue-600 font-medium transition-colors duration-300">Experience</a>
+        <div class="dropdown">
+          <a href="#experience" class="hover:text-blue-600 font-medium transition-colors duration-300">Experience</a>
+          <div class="dropdown-content">
+            <a href="#experience" class="dropdown-item">Professional Experience</a>
+            <a href="#projects" class="dropdown-item">Projects</a>
+          </div>
+        </div>
         <a href="#skills" class="hover:text-blue-600 font-medium transition-colors duration-300">Skills</a>
         <a href="#contact" class="hover:text-blue-600 font-medium transition-colors duration-300">Contact</a>
       </nav>
@@ -419,6 +506,7 @@
         <a href="#home" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Home</a>
         <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">About</a>
         <a href="#experience" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Experience</a>
+        <a href="#projects" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Projects</a>
         <a href="#skills" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Skills</a>
         <a href="#contact" class="block px-3 py-2 rounded-md hover:bg-gray-100 transition-colors">Contact</a>
       </div>
@@ -450,43 +538,59 @@
     </section>
 
     <section id="about" class="py-16 md:py-24 bg-white relative">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
-            About <span class="accent-text">Me</span>
-          </h2>
-          <p class="text-lg md:text-xl text-gray-600 font-light">A passionate advocate for public well-being and elder care</p>
+      <div class="newspaper-container">
+        <div class="newspaper-header">
+          <h1>My Journey to Gerontology</h1>
+          <p class="tagline">A Story of Love, Loss, and Purpose</p>
         </div>
-        <div class="md:flex items-center gap-8 lg:gap-16">
-          <div class="md:w-1/3 mb-8 md:mb-0" data-aos="fade-right" data-aos-duration="1200">
-            <div class="glass-card p-6 rounded-2xl">
-              <!-- Profile Image Placeholder -->
-              <img src="profile.jpg" alt="Simon Kibet" class="rounded-xl shadow-2xl w-full h-auto object-cover">
-            </div>
+        <div class="newspaper-content">
+          <!-- Profile Image floated left -->
+          <img alt="Simon Kibet" class="profile-image" src="profile.jpg"/>
+          <p><span class="drop-cap">I</span>n the remote villages of Tot, nestled within Kenya's Kerio Valley, my story begins—not with privilege or opportunity, but with profound love and an unshakeable determination to honor those who shaped me. This is the journey that led me to dedicate my life to caring for our most vulnerable elders, a path carved by heartbreak and illuminated by hope.</p>
+          
+          <h3 class="text-xl font-bold mt-8 mb-4 text-blue-800">Roots in Sacred Soil</h3>
+          
+          <p>Growing up in Tot, a region shadowed by banditry and economic hardship, I learned early that life's greatest lessons often come wrapped in struggle. As the eldest of six children, I carried responsibilities that extended far beyond my years. While my mother walked the dusty roads of our community, selling porridge from dawn to dusk, and my father labored in construction sites with calloused hands and an unwavering spirit, I became the guardian of our family's most precious treasures—my grandparents.</p>
+          
+          <div class="pull-quote">
+            "Public health wasn't just about statistics and policies—it was about understanding how communities thrive and ensuring every individual has the opportunity to live with dignity and wellness."
           </div>
-          <div class="md:w-2/3 space-y-6 md:space-y-8" data-aos="fade-left" data-aos-duration="1200">
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-              I specialize in managing public health programs and recreational therapies, with deep knowledge in elder care, crisis intervention, and mental health support. My experience spans both Kenyan and Canadian healthcare systems.
+          
+          <p>At Chebilil Primary School, I pursued education with a fierce determination that burned despite our circumstances. Each morning, I walked to school knowing that knowledge was our family's only path to a different future. The challenges were immense—studying by lamplight, walking long distances, and balancing academic pursuits with family responsibilities—but these obstacles only strengthened my resolve.</p>
+          
+          <h3 class="text-xl font-bold mt-8 mb-4 text-blue-800">The Crucible of Compassion</h3>
+          
+          <p>My grandfather's illness became the defining chapter of my young life and the foundation of my calling. As his health declined with age-related diseases, our family faced an impossible situation. With my parents working tirelessly just to put food on our table, I became his primary caregiver—a role I embraced with love but was painfully unprepared for.</p>
+          
+          <p>We had no professional healthcare support, no proper medical equipment, and no resources beyond our love and determination. I watched helplessly as my grandfather, once strong and dignified, became bedridden on a makeshift mattress fashioned from old clothes stuffed into sacks. The floors that served as our beds offered no comfort for his frail body.</p>
+          
+          <p>The memory that haunts me most—and drives me still—is watching him develop pressure sores that began small but grew progressively worse. Without proper medical knowledge or equipment, I could only provide basic comfort while his condition deteriorated. The sores became infected, spreading and deepening with each passing day. Despite my desperate efforts to care for him, I was fighting a battle for which I had no weapons.</p>
+          
+          <p>When my grandfather passed away, a piece of my heart died with him. But from that profound loss grew an unshakeable conviction: no family should endure what we endured. No elder should suffer without proper care. No young person should feel the crushing weight of helplessness I felt watching their loved one slip away.</p>
+          
+          <h3 class="text-xl font-bold mt-8 mb-4 text-blue-800">A Promise Kept</h3>
+          
+          <p>My grandmother, partially blind and struggling with the challenges of aging, became my next charge. This time, however, I was determined that her story would be different. The pain of losing my grandfather had planted a seed—a deep understanding that specialized knowledge in elder care could transform lives and preserve dignity.</p>
+          
+          <p>This realization guided my educational journey. At St. Francis Boys High School, I excelled academically while carrying the weight of my family's needs. Every lesson learned, every grade earned, was a step toward honoring my grandfather's memory and ensuring my grandmother's wellbeing.</p>
+          
+          <p>My path led me to Jaramogi Oginga Odinga University of Science and Technology, where I pursued a Bachelor of Science in Public Health. Each course brought me closer to understanding the complexities of aging, the importance of preventive care, and the critical role of professional health services in rural communities like mine.</p>
+          
+          <h3 class="text-xl font-bold mt-8 mb-4 text-blue-800">From Pain to Purpose</h3>
+          
+          <p>The journey culminated in my pursuit of a Post Graduate Certificate in Gerontology Interprofessional Practice at Fanshawe College in Toronto. This wasn't just an academic achievement—it was the fulfillment of a promise made to my grandfather's memory and a commitment to my grandmother's future.</p>
+          
+          <p>Today, as I work at Villa Colombo as a Recreational Aide, every elderly resident I serve carries the face of my grandfather. When I ensure their comfort, advocate for their needs, and provide companionate care, I'm not just performing professional duties—I'm healing a wound that has shaped my entire existence.</p>
+          
+          <p>The specialized knowledge I've gained has indeed transformed my grandmother's life. She now receives the professional care that could have changed my grandfather's story. Her dignity is preserved, her health is monitored, and her golden years are filled with the respect and attention every elder deserves.</p>
+          
+          <div class="vision-section">
+            <h2>My Vision</h2>
+            <p>
+              <span class="quote-marks open">"</span>
+              To create a world where every elderly individual receives compassionate, professional care that preserves their dignity and enhances their quality of life. I envision communities where aging is embraced with respect and where no family must face the challenges of elder care alone.
+              <span class="quote-marks close">"</span>
             </p>
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-              I'm devoted to creating inclusive and accessible wellness environments through data-driven decision-making and collaborative leadership.
-            </p>
-            <div class="glass-card p-6 rounded-xl bg-gradient-to-br from-blue-50 to-purple-50">
-              <ul class="space-y-3 text-base md:text-lg">
-                <li class="flex items-center">
-                  <span class="accent-text font-semibold mr-3">✉</span> 
-                  <span class="break-all">simonkibet01@gmail.com</span>
-                </li>
-                <li class="flex items-center">
-                  <span class="accent-text font-semibold mr-3">📞</span> 
-                  (437) 766 0290
-                </li>
-                <li class="flex items-center">
-                  <span class="accent-text font-semibold mr-3">📍</span> 
-                  Toronto, Ontario
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -561,6 +665,47 @@
       </div>
     </section>
 
+    <section id="projects" class="py-16 md:py-24 bg-white">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
+            My <span class="accent-text">Projects</span>
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 font-light">Initiatives that have made a difference in community health</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-3 text-blue-800">Elderly Wellness Program</h3>
+            <p class="text-gray-600 mb-4">Developed and implemented a comprehensive wellness program for elderly residents at Villa Colombo, focusing on physical, mental, and social well-being.</p>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <span class="accent-text mr-2 mt-1">•</span>
+                <span>Increased participation in activities by 40%</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-2 mt-1">•</span>
+                <span>Improved resident satisfaction scores by 35%</span>
+              </li>
+            </ul>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-3 text-blue-800">Community Health Education</h3>
+            <p class="text-gray-600 mb-4">Created and delivered health education workshops in rural Kenyan communities, focusing on preventive care for aging populations.</p>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start">
+                <span class="accent-text mr-2 mt-1">•</span>
+                <span>Reached over 500 community members</span>
+              </li>
+              <li class="flex items-start">
+                <span class="accent-text mr-2 mt-1">•</span>
+                <span>Improved health literacy scores by 25%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="skills" class="py-16 md:py-24 bg-white">
       <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
@@ -598,47 +743,129 @@
       </div>
     </section>
 
-    <section id="contact" class="py-16 md:py-24 hero-bg text-white">
-      <div class="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-display text-shadow">
-          Get in <span class="text-yellow-300">Touch</span>
-        </h2>
-        <p class="mb-8 md:mb-12 text-lg md:text-xl text-gray-200 font-light">
-          Let's discuss how we can collaborate on improving public health and care systems
-        </p>
-        <div class="contact-form rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
-          <form class="space-y-6">
-            <input 
-              type="text" 
-              placeholder="Your Name" 
-              class="w-full p-4 rounded-xl text-base md:text-lg" 
-            />
-            <input 
-              type="email" 
-              placeholder="Your Email" 
-              class="w-full p-4 rounded-xl text-base md:text-lg" 
-            />
-            <textarea 
-              placeholder="Your Message" 
-              rows="5" 
-              class="w-full p-4 rounded-xl text-base md:text-lg resize-none"
-            ></textarea>
-            <button class="w-full primary-button px-6 py-4 rounded-xl font-bold text-lg text-white">
-              Send Message
-            </button>
-          </form>
+    <section id="contact" class="py-16 md:py-24 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 font-display text-gray-800">
+            Get in <span class="accent-text">Touch</span>
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 font-light">Let's connect and discuss opportunities</p>
+        </div>
+        
+        <div class="contact-grid">
+          <div class="contact-card">
+            <a href="tel:+14377660290">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <h3>Phone</h3>
+              <p>(437) 766 0290</p>
+            </a>
+          </div>
+          
+          <div class="contact-card">
+            <a href="mailto:simonkibet01@gmail.com">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <h3>Email</h3>
+              <p>simonkibet01@gmail.com</p>
+            </a>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Location</h3>
+            <p>Toronto, Ontario</p>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Availability</h3>
+            <p>Open for Opportunities</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-gray-900 text-white text-center py-8">
+  <footer class="bg-gray-900 text-white py-8">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="border-t border-gray-700 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <h3 class="text-xl font-bold font-display mb-2">Simon Kibet</h3>
+          <p class="text-gray-300">Public Health Professional & Recreational Care Specialist</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="fab fa-linkedin-in text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-300 hover:text-white transition-colors">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 pt-8 mt-8 text-center">
         <p class="text-gray-300 font-light">&copy; 2025 Simon Kibet. All rights reserved.</p>
       </div>
-    
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 100
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+          // Close mobile menu after clicking
+          if (mobileMenu) {
+            mobileMenu.classList.add('hidden');
+          }
+        });
+      });
+
+      // Navbar background on scroll
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('header');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
